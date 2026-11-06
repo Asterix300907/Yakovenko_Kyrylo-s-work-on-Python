@@ -1,0 +1,28 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ site_name }} - Статті{% endblock %}
+
+{% block content %}
+<h2>Список статей блогу</h2>
+<p>Всього знайдено записів: {{ posts|length }}</p>
+
+    {% if posts %}
+<ul>
+    {% for post in posts %}
+    <li>
+        <h3>{{ post.title }}</h3>
+        <p><i>Автор: {{ post.author }}, Дата: {{ post.date }}</i></p>
+        <p>
+            {% if post.content %}
+            {{ post.content|truncatewords:10 }}
+            {% else %}
+            {{ post.content|default:"Опис відсутній" }}
+            {% endif %}
+        </p>
+    </li>
+    {% endfor %}
+</ul>
+    {% else %}
+<p>Статей поки що немає.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мій Django Блог{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>📘 Мій Django Блог</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'index' %}">Головна</a>
+        <a href="{% url 'posts' %}">Статті</a>
+        <a href="{% url 'contact' %}">Контакти</a>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year|default:"2026" }} Яковенко Кирило, БІКСб-12-540. Всі права захищено.</p>
+    </footer>
+</body>
+</html>

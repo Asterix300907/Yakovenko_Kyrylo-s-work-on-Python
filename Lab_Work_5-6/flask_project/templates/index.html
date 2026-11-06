@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_name }} - Головна{% endblock %}
+
+{% block content %}
+<h2>Ласкаво просимо на сайт "{{ site_name|upper }}"!</h2>
+
+<p>Опис сайту: {{ description }}</p>
+<p>Кількість статей: {{ posts_count }}</p>
+<p>Якби кожна стаття мала по 2 коментарі, було б всього: {{ posts_count * multiplier }} коментарів.</p>
+{% endblock %}

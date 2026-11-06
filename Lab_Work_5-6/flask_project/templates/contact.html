@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_name }} - Зворотний зв'язок{% endblock %}
+
+{% block content %}
+<h2>Зворотний зв'язок</h2>
+<p>Заповніть форму нижче, і ми зв'яжемося з вами.</p>
+
+    {# Блок flash-повідомлень #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+<div style="padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; margin-bottom: 20px;">
+    ✅ {{ message }}
+</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {# Макрос для уніфікованого рендерингу полів #}
+    {% macro render_field(field) %}
+<div style="margin-bottom: 15px;">
+    {{ field.label }}
+    {{ field(class="form-input", style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;") }}
+
+    {% if field.errors %}
+    <ul style="color: #dc3545; font-size: 0.9em; margin-top: 5px; list-style-type: none; padding-left: 0;">
+        {% for error in field.errors %}
+        <li>⚠️ {{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+    {% endmacro %}
+
+<form method="post" novalidate>
+    {{ form.hidden_tag() }}  {# CSRF-токен #}
+
+    {{ render_field(form.name) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.subject) }}
+    {{ render_field(form.message) }}
+
+    <button type="submit" style="padding: 10px 20px; background-color: #2980b9; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+        {{ form.submit.label.text }}
+    </button>
+</form>
+{% endblock %}

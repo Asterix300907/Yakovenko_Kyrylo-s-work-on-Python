@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ site_name }} - Головна{% endblock %}
+
+{% block content %}
+<h2>Ласкаво просимо на сайт "{{ site_name }}"!</h2>
+
+<p>Опис сайту (обрізано): {{ description|truncatewords:5 }}</p>
+<p>Кількість статей: {{ posts_count }}</p>
+<p>Поточний рік: {{ current_year }}</p>
+{% endblock %}

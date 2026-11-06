@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мій Flask Блог{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>📘 Мій Flask Блог</h1>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Головна</a>
+        <a href="{{ url_for('posts') }}">Статті</a>
+        <a href="{{ url_for('contact') }}">Контакти</a>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Яковенко Кирило, БІКСб-12-540. Всі права захищено.</p>
+    </footer>
+</body>
+</html>
