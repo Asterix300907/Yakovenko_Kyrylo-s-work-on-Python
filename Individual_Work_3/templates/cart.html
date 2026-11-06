@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Мій кошик{% endblock %}
+{% block content %}
+<h2>Ваш кошик</h2>
+    {% if books_data %}
+<table>
+    <thead>
+        <tr>
+            <th>Назва</th>
+            <th>Автор</th>
+            <th>Ціна</th>
+            <th>Кількість</th>
+            <th>Сума</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in books_data %}
+        <tr>
+            <td>{{ item.book.title }}</td>
+            <td>{{ item.book.author }}</td>
+            <td>{{ item.book.price }} грн</td>
+            <td>
+                <div class="qty-controls">
+                    <form method="POST" action="{{ url_for('update_cart', book_id=item.book.id) }}" class="inline-form">
+                        <input type="hidden" name="action" value="decrease">
+                        <button type="submit" class="qty-btn">−</button>
+                    </form>
+                    <span class="qty-value">{{ item.quantity }}</span>
+                    <form method="POST" action="{{ url_for('update_cart', book_id=item.book.id) }}" class="inline-form">
+                        <input type="hidden" name="action" value="increase">
+                        <button type="submit" class="qty-btn">+</button>
+                    </form>
+                </div>
+            </td>
+            <td><strong>{{ item.subtotal }} грн</strong></td>
+            <td>
+                <form method="POST" action="{{ url_for('update_cart', book_id=item.book.id) }}" class="inline-form">
+                    <input type="hidden" name="action" value="remove">
+                    <button type="submit" class="qty-btn danger" title="Видалити">✕</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3 style="text-align: right;">Разом: {{ total }} грн</h3>
+<div style="text-align: right;">
+    <a href="{{ url_for('clear_cart') }}" class="btn btn-danger">Очистити кошик</a>
+    <a href="{{ url_for('create_order') }}" class="btn">Оформити замовлення</a>
+</div>
+    {% else %}
+<p>Ваш кошик порожній. <a href="{{ url_for('book_list') }}">Перейти до каталогу</a>.</p>
+    {% endif %}
+{% endblock %}

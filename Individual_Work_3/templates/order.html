@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Оформлення замовлення{% endblock %}
+{% block content %}
+<h2>Оформлення замовлення</h2>
+<form method="POST">
+    <label for="name">Ваше ім'я та прізвище:</label>
+    <input type="text" id="name" name="name" required placeholder="Іван Петренко">
+
+    <label for="email">Електронна пошта:</label>
+    <input type="email" id="email" name="email" required placeholder="ivan@example.com">
+
+    <br><br>
+    <button type="submit" class="btn">Підтвердити замовлення</button>
+    <a href="{{ url_for('view_cart') }}" class="btn btn-danger">Скасувати</a>
+</form>
+{% endblock %}

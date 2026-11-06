@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Головна - Книгарня{% endblock %}
+{% block content %}
+<h2>Ласкаво просимо до нашої книгарні!</h2>
+<p>У нашому каталозі зараз {{ books|length }} книг.</p>
+<h3>Останні надходження:</h3>
+<div class="books-grid">
+    {% for book in books %}
+    <div class="book-card">
+        <h3>{{ book.title }}</h3>
+        <p><i>{{ book.author }}</i></p>
+        <p class="price">{{ book.price }} грн</p>
+        <a href="{{ url_for('book_detail', book_id=book.id) }}" class="btn">Детальніше</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

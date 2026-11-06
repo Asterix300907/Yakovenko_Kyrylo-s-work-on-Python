@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Онлайн-Книгарня{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="{{ theme if theme else request.cookies.get('theme', 'light') }}">
+    <header>
+        <h1>📚 Онлайн-Книгарня</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Головна</a>
+            <a href="{{ url_for('book_list') }}">Каталог</a>
+            <a href="{{ url_for('view_cart') }}">Кошик ({{ cart_total }})</a>
+            <span class="theme-switch">
+                <a href="{{ url_for('set_theme', theme='light') }}" title="Світла тема">☀️</a> |
+                <a href="{{ url_for('set_theme', theme='dark') }}" title="Темна тема">🌙</a>
+            </span>
+        </nav>
+    </header>
+
+    <main>
+        {# Відображення flash-повідомлень #}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Яковенко Кирило, БІКСб-12-540. Самостійна робота №3</p>
+    </footer>
+</body>
+</html>
